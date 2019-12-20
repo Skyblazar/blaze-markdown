@@ -16,7 +16,9 @@ class App extends Component {
     this.markdownText = e.target.value;
 
     const md = new Remarkable({
-      linkify: true
+      linkify: true,
+      breaks: true,
+      html: true
     });
     this.setState({
       markdownHTML: md.render(this.markdownText)
@@ -26,20 +28,24 @@ class App extends Component {
   render() {
     const { markdownHTML } = this.state;
     return (
-      <div className="App container">
+      <div className="app container">
         <div className="content">
           <div className="left">
             <textarea
               name="markdownText"
               id=""
+              placeholder="Type some markdown"
               onChange={this.onChange}>
 
             </textarea>
           </div>
 
           <div className="right">
-            <div
-              dangerouslySetInnerHTML={{ __html: markdownHTML }}></div>
+            <div className="preview-container">
+              <div
+                className="preview"
+                dangerouslySetInnerHTML={{ __html: markdownHTML }}></div>
+            </div>
           </div>
         </div>
       </div>
