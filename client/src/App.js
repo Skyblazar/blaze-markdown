@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Remarkable } from 'remarkable';
+import axios from 'axios';
 import './App.scss';
 
 class App extends Component {
@@ -26,7 +27,9 @@ class App extends Component {
   };
 
   downloadPDF = () => {
-
+    axios.post('http://192.168.43.45:8000/pdf', {
+      md: this.markdownText
+    });
   };
 
   render() {
