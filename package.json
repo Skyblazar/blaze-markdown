@@ -1,0 +1,13 @@
+{
+  "name": "blaze-markdown",
+  "version": "1.0.0",
+  "description": "Markdown to PDF or Image",
+  "main": "server.js",
+  "repository": "https://github.com/elishaking/blaze-markdown.git",
+  "author": "King Elisha <ek.chibueze@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1",
+    "markdown-pdf": "^10.0.0"
+  }
+}
