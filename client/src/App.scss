@@ -36,9 +36,40 @@
         background-color: rgba($color: #9E9E9E, $alpha: 0.1);
         padding: 1em 2em;
         border-radius: 5px;
+        position: relative;
 
         .preview {
           word-break: break-all;
+        }
+
+        .download {
+          position: absolute;
+          bottom: 0;
+          right: 0;
+          padding: 1em 2em;
+          opacity: 0;
+          transition: 0.3s ease-in-out;
+
+          button {
+            background-color: rgb(180, 42, 42);
+            padding: 1em 2em;
+            color: white;
+            outline: none;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: 0.3s ease-in-out;
+          }
+
+          button:hover {
+            opacity: 0.7;
+          }
+        }
+      }
+
+      .preview-container:hover {
+        .download {
+          opacity: 1;
         }
       }
     }

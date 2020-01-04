@@ -25,6 +25,10 @@ class App extends Component {
     });
   };
 
+  downloadPDF = () => {
+
+  };
+
   render() {
     const { markdownHTML } = this.state;
     return (
@@ -45,6 +49,12 @@ class App extends Component {
               <div
                 className="preview"
                 dangerouslySetInnerHTML={{ __html: markdownHTML }}></div>
+
+              <div className="download">
+                <button className="pdf" onClick={this.downloadPDF}>
+                  PDF
+                </button>
+              </div>
             </div>
           </div>
         </div>
