@@ -13,6 +13,40 @@
       width: 45%;
     }
 
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 0.5rem;
+
+      span {
+        font-size: x-large;
+      }
+
+      .download {
+
+        button {
+          background-color: rgb(180, 42, 42);
+          padding: 1em 2em;
+          color: white;
+          outline: none;
+          border: none;
+          cursor: pointer;
+          border-radius: 5px;
+          transition: 0.3s ease-in-out;
+          margin-left: 1em;
+        }
+
+        .image {
+          background-color: #7e91d6;
+        }
+
+        button:hover {
+          opacity: 0.7;
+        }
+      }
+    }
+
     .left {
       textarea {
         width: 100%;
@@ -41,30 +75,6 @@
 
         .preview {
           word-break: break-all;
-        }
-
-        .download {
-          position: fixed;
-          // bottom: 0;
-          // right: 0;
-          padding: 1em 2em;
-          opacity: 0;
-          transition: 0.3s ease-in-out;
-
-          button {
-            background-color: rgb(180, 42, 42);
-            padding: 1em 2em;
-            color: white;
-            outline: none;
-            border: none;
-            cursor: pointer;
-            border-radius: 5px;
-            transition: 0.3s ease-in-out;
-          }
-
-          button:hover {
-            opacity: 0.7;
-          }
         }
       }
 

@@ -28,7 +28,7 @@ class App extends Component {
   };
 
   /** @param {String} fileType */
-  downloadPDF = (fileType = "pdf") => {
+  download = (fileType = "pdf") => {
     const loadingKey = `${fileType}Loading`;
     this.setState({ [loadingKey]: true });
 
@@ -61,6 +61,15 @@ class App extends Component {
       <div className="app container">
         <div className="content">
           <div className="left">
+            <header>
+              <span>Text Input</span>
+
+              <div className="download" style={{ opacity: 0 }}>
+                <button className="image">
+                  Image
+                </button>
+              </div>
+            </header>
             <textarea
               name="markdownText"
               id=""
@@ -71,16 +80,21 @@ class App extends Component {
           </div>
 
           <div className="right">
+            <header>
+              <span>Markdown</span>
+              <div className="download">
+                <button className="image" onClick={() => this.download("image")}>
+                  Image
+                </button>
+                <button className="pdf" onClick={() => this.download("pdf")}>
+                  PDF
+                </button>
+              </div>
+            </header>
             <div className="preview-container">
               <div
                 className="preview"
                 dangerouslySetInnerHTML={{ __html: markdownHTML }}></div>
-
-              <div className="download">
-                <button className="pdf" onClick={() => this.downloadPDF("pdf")}>
-                  PDF
-                </button>
-              </div>
             </div>
           </div>
         </div>
