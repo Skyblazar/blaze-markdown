@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { Remarkable } from 'remarkable';
-import axios from 'axios';
 import './App.scss';
 
 class App extends Component {
   state = {
-    markdownHTML: ""
+    markdownHTML: "",
+    pdfLoading: false,
+    imgLoading: false
   }
 
   markdownText = "";
@@ -26,10 +27,31 @@ class App extends Component {
     });
   };
 
-  downloadPDF = () => {
-    axios.post('http://192.168.43.45:8000/pdf', {
-      md: this.markdownText
-    });
+  downloadPDF = (type = "pdf") => {
+    const loadingKey = `${type}Loading`;
+    this.setState({ [loadingKey]: true });
+
+    const uniqueLink = Date.now().toString();
+    fetch(`http://192.168.43.45:8000/pdf/${uniqueLink}`, {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        md: this.markdownText
+      })
+    }).then((res) => res.blob().then((blob) => {
+      this.setState({ [loadingKey]: false });
+      if (blob.size === 0 || blob.type === "") return;
+
+      const url = window.URL.createObjectURL(new Blob([blob]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', `md_to_${type}_${uniqueLink.substring(7, 13)}.${type === "pdf" ? "pdf" : "png"}`);
+      document.body.appendChild(link);
+      link.click();
+      link.parentNode.removeChild(link);
+    }));
   };
 
   render() {
