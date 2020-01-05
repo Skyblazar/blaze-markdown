@@ -1,5 +1,9 @@
 .container {
   padding: 3em 10vw;
+
+  @media (max-width: 760px) {
+    padding: 3em 5vw;
+  }
 }
 
 .app {
@@ -41,7 +45,7 @@
 
         button {
           background-color: rgb(180, 42, 42);
-          padding: 1em 2em;
+          padding: 0.7em 1.4em;
           color: white;
           outline: none;
           border: none;
@@ -98,6 +102,38 @@
           opacity: 1;
         }
       }
+    }
+  }
+
+  @media (max-width: 1200px) {
+    .content {
+      flex-direction: column;
+
+      .left,
+      .right {
+        width: 100%;
+        margin-bottom: 5em;
+      }
+
+      .left {
+        textarea {
+          height: 60vh;
+        }
+      }
+
+      .right {
+
+        .preview-container {
+          height: fit-content;
+          overflow: visible;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 480px) {
+    button {
+      padding: 0.5em 1em !important;
     }
   }
 }
