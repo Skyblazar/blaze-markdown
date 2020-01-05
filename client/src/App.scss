@@ -37,15 +37,16 @@
         padding: 1em 2em;
         border-radius: 5px;
         position: relative;
+        overflow-y: scroll;
 
         .preview {
           word-break: break-all;
         }
 
         .download {
-          position: absolute;
-          bottom: 0;
-          right: 0;
+          position: fixed;
+          // bottom: 0;
+          // right: 0;
           padding: 1em 2em;
           opacity: 0;
           transition: 0.3s ease-in-out;

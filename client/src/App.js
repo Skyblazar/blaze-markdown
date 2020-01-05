@@ -27,8 +27,9 @@ class App extends Component {
     });
   };
 
-  downloadPDF = (type = "pdf") => {
-    const loadingKey = `${type}Loading`;
+  /** @param {String} fileType */
+  downloadPDF = (fileType = "pdf") => {
+    const loadingKey = `${fileType}Loading`;
     this.setState({ [loadingKey]: true });
 
     const uniqueLink = Date.now().toString();
@@ -47,7 +48,7 @@ class App extends Component {
       const url = window.URL.createObjectURL(new Blob([blob]));
       const link = document.createElement('a');
       link.href = url;
-      link.setAttribute('download', `md_to_${type}_${uniqueLink.substring(7, 13)}.${type === "pdf" ? "pdf" : "png"}`);
+      link.setAttribute('download', `md_to_${fileType}_${uniqueLink.substring(7, 13)}.${fileType === "pdf" ? "pdf" : "png"}`);
       document.body.appendChild(link);
       link.click();
       link.parentNode.removeChild(link);
@@ -76,7 +77,7 @@ class App extends Component {
                 dangerouslySetInnerHTML={{ __html: markdownHTML }}></div>
 
               <div className="download">
-                <button className="pdf" onClick={this.downloadPDF}>
+                <button className="pdf" onClick={() => this.downloadPDF("pdf")}>
                   PDF
                 </button>
               </div>
