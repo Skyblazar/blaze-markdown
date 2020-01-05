@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Remarkable } from 'remarkable';
+import hljs from 'highlight.js';
 import './App.scss';
 
 class App extends Component {
@@ -20,7 +21,25 @@ class App extends Component {
     const md = new Remarkable({
       linkify: true,
       breaks: true,
-      html: true
+      html: false,
+      // langPrefix: 'language-',
+      highlight(str, lang) {
+        if (lang && hljs.getLanguage(lang)) {
+          try {
+            return hljs.highlight(lang, str).value;
+          } catch (err) {
+            console.log(err);
+          }
+        }
+
+        try {
+          return hljs.highlightAuto(str).value;
+        } catch (err) {
+          console.log(err);
+        }
+
+        return '';
+      }
     });
     this.setState({
       markdownHTML: md.render(this.markdownText)

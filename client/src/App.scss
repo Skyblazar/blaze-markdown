@@ -13,6 +13,20 @@
       width: 45%;
     }
 
+    a {
+      text-decoration: none;
+      color: #0366d6;
+    }
+
+    pre {
+      padding: 16px;
+      overflow: auto;
+      // font-size: 85%;
+      line-height: 1.45;
+      background-color: #f6f8fa;
+      border-radius: 3px;
+    }
+
     header {
       display: flex;
       justify-content: space-between;
@@ -49,6 +63,7 @@
 
     .left {
       textarea {
+        font-family: inherit;
         width: 100%;
         height: 100%;
         border: 1.3px solid #9E9E9E;
