@@ -12,11 +12,6 @@ class App extends Component {
     imgLoading: false
   }
 
-  componentDidMount() {
-    console.log(process.env.NODE_ENV)
-  }
-
-
   markdownText = "";
 
   /**
@@ -123,7 +118,8 @@ class App extends Component {
     }
 
     const uniqueLink = Date.now().toString();
-    fetch(`http://192.168.43.45:8000/pdf/${uniqueLink}`, {
+    const host = process.env.NODE_ENV === "development" ? "http://192.168.43.45:8000" : "";
+    fetch(`${host}/pdf/${uniqueLink}`, {
       method: "POST",
       headers: {
         'Content-Type': 'application/json'
