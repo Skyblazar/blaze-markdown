@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Remarkable } from 'remarkable';
 import hljs from 'highlight.js';
+import htmlToImage from 'html-to-image';
 import './App.scss';
 
 class App extends Component {
@@ -46,10 +47,63 @@ class App extends Component {
     });
   };
 
+  /**
+   * @param {string} dataUrl
+   * @param {string} contentType
+   * @param {number} sliceSize
+   */
+  b64toBlob = (dataUrl, contentType = 'image/png', sliceSize = 512) => {
+    const b64Data = dataUrl.split(',')[1];
+    console.log(b64Data);
+    const byteCharacters = atob(b64Data);
+    const byteArrays = [];
+
+    for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+      const slice = byteCharacters.slice(offset, offset + sliceSize);
+
+      const byteNumbers = new Array(slice.length);
+      for (let i = 0; i < slice.length; i++) {
+        byteNumbers[i] = slice.charCodeAt(i);
+      }
+
+      const byteArray = new Uint8Array(byteNumbers);
+      byteArrays.push(byteArray);
+    }
+
+    const blob = new Blob(byteArrays, { type: contentType });
+    return blob;
+  }
+
   /** @param {String} fileType */
   download = (fileType = "pdf") => {
     const loadingKey = `${fileType}Loading`;
     this.setState({ [loadingKey]: true });
+
+    if (fileType === "png") {
+      const previewElem = document.getElementById('preview');
+      previewElem.style.padding = "1em 2em";
+      previewElem.style.backgroundColor = "#f5f5f5";
+
+      htmlToImage.toPng(previewElem)
+        .then((dataUrl) => {
+          this.setState({ [loadingKey]: false });
+          if (dataUrl.length === 0) return;
+
+          var img = new Image();
+          img.src = dataUrl;
+          document.body.appendChild(img);
+          previewElem.style.padding = "0";
+
+          const url = window.URL.createObjectURL(this.b64toBlob(dataUrl));
+          const link = document.createElement('a');
+          link.href = url;
+          link.setAttribute('download', `md_to_png.png`);
+          document.body.appendChild(link);
+          link.click();
+          link.parentNode.removeChild(link);
+        });
+      return;
+    }
 
     const uniqueLink = Date.now().toString();
     fetch(`http://192.168.43.45:8000/pdf/${uniqueLink}`, {
@@ -102,7 +156,7 @@ class App extends Component {
             <header>
               <span>Markdown</span>
               <div className="download">
-                <button className="image" onClick={() => this.download("image")}>
+                <button className="image" onClick={() => this.download("png")}>
                   Image
                 </button>
                 <button className="pdf" onClick={() => this.download("pdf")}>
@@ -112,6 +166,7 @@ class App extends Component {
             </header>
             <div className="preview-container">
               <div
+                id="preview"
                 className="preview"
                 dangerouslySetInnerHTML={{ __html: markdownHTML }}></div>
             </div>
