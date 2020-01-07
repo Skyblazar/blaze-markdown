@@ -3,6 +3,7 @@ import { Remarkable } from 'remarkable';
 import hljs from 'highlight.js';
 import htmlToImage from 'html-to-image';
 import './App.scss';
+import Container from './components/Container';
 
 class App extends Component {
   state = {
@@ -141,7 +142,7 @@ class App extends Component {
   render() {
     const { markdownHTML } = this.state;
     return (
-      <div className="app container">
+      <Container className="app">
         <div className="content">
           <div className="left">
             <header>
@@ -182,7 +183,7 @@ class App extends Component {
             </div>
           </div>
         </div>
-      </div>
+      </Container>
     );
   }
 }
