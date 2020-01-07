@@ -24,6 +24,10 @@ class App extends Component {
       breaks: true,
       html: false,
       // langPrefix: 'language-',
+      /**
+       * @param {string} str
+       * @param {string} lang
+       */
       highlight(str, lang) {
         if (lang && hljs.getLanguage(lang)) {
           try {
@@ -74,6 +78,20 @@ class App extends Component {
     return blob;
   }
 
+  /**
+   * @param {string} fileName
+   * @param {Blob} blob
+   */
+  downloadFile = (fileName, blob) => {
+    const url = window.URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', fileName);
+    document.body.appendChild(link);
+    link.click();
+    link.parentNode.removeChild(link);
+  }
+
   /** @param {String} fileType */
   download = (fileType = "pdf") => {
     const loadingKey = `${fileType}Loading`;
@@ -89,19 +107,11 @@ class App extends Component {
           this.setState({ [loadingKey]: false });
           if (dataUrl.length === 0) return;
 
-          var img = new Image();
-          img.src = dataUrl;
-          document.body.appendChild(img);
           previewElem.style.padding = "0";
 
-          const url = window.URL.createObjectURL(this.b64toBlob(dataUrl));
-          const link = document.createElement('a');
-          link.href = url;
-          link.setAttribute('download', `md_to_png.png`);
-          document.body.appendChild(link);
-          link.click();
-          link.parentNode.removeChild(link);
+          this.downloadFile('md_to_png.png', this.b64toBlob(dataUrl));
         });
+
       return;
     }
 
@@ -118,13 +128,7 @@ class App extends Component {
       this.setState({ [loadingKey]: false });
       if (blob.size === 0 || blob.type === "") return;
 
-      const url = window.URL.createObjectURL(new Blob([blob]));
-      const link = document.createElement('a');
-      link.href = url;
-      link.setAttribute('download', `md_to_${fileType}_${uniqueLink.substring(7, 13)}.${fileType === "pdf" ? "pdf" : "png"}`);
-      document.body.appendChild(link);
-      link.click();
-      link.parentNode.removeChild(link);
+      this.downloadFile('md_to_pdf.pdf', new Blob([blob]));
     }));
   };
 
