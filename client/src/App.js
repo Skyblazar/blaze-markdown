@@ -58,7 +58,6 @@ class App extends Component {
    */
   b64toBlob = (dataUrl, contentType = 'image/png', sliceSize = 512) => {
     const b64Data = dataUrl.split(',')[1];
-    console.log(b64Data);
     const byteCharacters = atob(b64Data);
     const byteArrays = [];
 
@@ -100,9 +99,11 @@ class App extends Component {
     if (fileType === "png") {
       const previewElem = document.getElementById('preview');
       previewElem.style.padding = "1em 2em";
-      previewElem.style.backgroundColor = "#f5f5f5";
 
-      htmlToImage.toPng(previewElem)
+      htmlToImage.toPng(previewElem, {
+        backgroundColor: "#f7f7f7",
+        imagePlaceholder: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEYAAAAeCAYAAACR82geAAAABHNCSVQICAgIfAhkiAAAAp9JREFUaIHtmT9oFEEUxr/vnRCRKEdQTMDKUm0UyZ3BMgpik1pEBRsLN7lTvEpwFQVJc7teiJpCg4h1QCwUtRLcA0FRFBtBKw8jZo0i4eLms4ly5p8Rk8yq+XUzbx78eMwMu/OIeVAsFluSJNltZrskbSLZJmkdyVXzyXeFpC8k30mqAXhuZncA3C2Xyx9+lcu5gqVSaXW9Xj8D4CiAFQuj65yvAC4kSXK6UqmMzrZotsKwUCgclHSe5PrF8XOLpBrJUhAE1wFoajwzU1JPT88JAH0kmxdb0BUkmyV1dXR0xFEUVafFGwe+79vIyMhVkgeWTjEVBNls9rjv+xPfJ6wxGsdx939YFAAoxHHc3TjxY8cUi8VOSbcxpVj/ERMk95TL5TvAZGE8z2syszf/6kX7G7yN43jj4ODgmAEAyeJyUQAAbdls9ggweWxI9rj1SRUlAKDneflMJvPQtU2aSJJkh5lZl2uRtGFmXUYy71okbZDMm6RW1yJpQ1KrkVwuzBRItpqkla5F0oiRrLmWSBuSajb5iLNMAyRrBuCJa5G0IemlSRpyLZI2JA1ZS0vLfQAfXcukBUmjY2Nj98z3/bqkS66FUsTFgYGBcQOApqamc5KGXRu5RtLw+Pj4WWDy77q3t/eTme0HMDFn5r/NhJnt6+/v/ww0PIZHUfSqvb29TrLTnZtTjgVBcOP74KcuQbVafZDP5zcA2LbkWg6RdDkMw5ONc9PaJ1EU3czlcp8B7CI5Z0Pub0eSSHphGJ6aGpuxr1StVh/mcrmnJHcCWLPohm54LelwGIbXZgr+ckcUCoVDkrpJbl14t6VH0mOSfUEQXJlr3byPiud56zKZzF4A2wFsAbAZwNo/01x03kt6QfIZgEdJktyqVCrz+iz5Bt+l8l7rKvG3AAAAAElFTkSuQmCC"
+      })
         .then((dataUrl) => {
           this.setState({ [loadingKey]: false });
           if (dataUrl.length === 0) return;
