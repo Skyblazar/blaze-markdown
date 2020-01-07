@@ -11,6 +11,11 @@ class App extends Component {
     imgLoading: false
   }
 
+  componentDidMount() {
+    console.log(process.env.NODE_ENV)
+  }
+
+
   markdownText = "";
 
   /**
