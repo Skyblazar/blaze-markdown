@@ -136,7 +136,6 @@ class App extends Component {
       .then((res) => res.blob())
       .then((blob) => {
         this.setState({ pdfLoading: false });
-        console.log("state set");
 
         if (blob.size === 0 || blob.type === "") return;
 
