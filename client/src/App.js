@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+// @ts-ignore
 import { Remarkable } from 'remarkable';
 import hljs from 'highlight.js';
 import htmlToImage from 'html-to-image';
