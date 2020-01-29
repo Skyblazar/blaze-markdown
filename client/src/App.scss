@@ -42,6 +42,9 @@
       }
 
       .download {
+        display: flex;
+        align-items: center;
+
         button {
           background-color: rgb(180, 42, 42);
           padding: 0.7em 1.4em;
@@ -133,5 +136,20 @@
     button {
       padding: 0.5em 1em !important;
     }
+  }
+}
+
+.spinner {
+  font-size: 1.9em;
+  animation: loading 0.7s linear infinite forwards;
+}
+
+@keyframes loading {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
   }
 }

@@ -5,6 +5,7 @@ import hljs from 'highlight.js';
 import htmlToImage from 'html-to-image';
 import './App.scss';
 import Container from './components/Container';
+import Spinner from './components/Spinner';
 
 class App extends Component {
   state = {
@@ -137,7 +138,7 @@ class App extends Component {
   };
 
   render() {
-    const { markdownHTML } = this.state;
+    const { markdownHTML, pdfLoading, imgLoading } = this.state;
     return (
       <Container className="app">
         <div className="content">
@@ -164,12 +165,20 @@ class App extends Component {
             <header>
               <span>Markdown</span>
               <div className="download">
-                <button className="image" onClick={() => this.download("png")}>
-                  Image
-                </button>
-                <button className="pdf" onClick={() => this.download("pdf")}>
-                  PDF
-                </button>
+                {
+                  imgLoading ? <Spinner /> : (
+                    <button className="image" onClick={() => this.download("png")}>
+                      Image
+                    </button>
+                  )
+                }
+                {
+                  pdfLoading ? <Spinner /> : (
+                    <button className="pdf" onClick={() => this.download("pdf")}>
+                      PDF
+                    </button>
+                  )
+                }
               </div>
             </header>
             <div className="preview-container">

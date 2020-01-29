@@ -3,8 +3,9 @@ import React from 'react';
 export default function Spinner({ className = '', padding = true }) {
   return (
     <div style={{
-      textAlign: "center",
-      padding: padding ? "1em" : "0"
+      // textAlign: "center",
+      // padding: padding ? "1em" : "0"
+      marginLeft: "1em"
     }} className={className}>
       {/* <img src="./assets/img/spinner.gif" alt="" srcSet="" style={{
         maxHeight: "4vh"

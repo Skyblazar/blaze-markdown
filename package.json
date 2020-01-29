@@ -9,5 +9,8 @@
   "dependencies": {
     "express": "^4.17.1",
     "markdown-pdf": "^10.0.0"
+  },
+  "scripts": {
+    "dev": "nodemon server.js"
   }
 }
