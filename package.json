@@ -7,7 +7,7 @@
   "author": "King Elisha <ek.chibueze@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "markdown-pdf": "^10.0.0"
   },
   "scripts": {
